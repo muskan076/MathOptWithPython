@@ -1,0 +1,168 @@
+{
+  "scenario": {
+    "company": "TechBuild Manufacturing",
+    "industry": "Electronics Assembly",
+    "description": "Weekly production planning for a small-batch PCB and electronic module assembly plant. Five product lines carry committed customer orders (min demand). Machine hours represent a single SMT pick-and-place plus reflow oven line running one shift per day.",
+    "planning_horizon": "weekly"
+  },
+  "products": [
+    {
+      "id": "U",
+      "name": "Basic Control Board",
+      "selling_price": 270,
+      "other_variable_cost": 15,
+      "market_demand_min": 10,
+      "market_demand_max": 40,
+      "raw_material_g": 10,
+      "labor_a_hours": 1,
+      "labor_b_hours": 2,
+      "machine_hours": 0.5
+    },
+    {
+      "id": "V",
+      "name": "Sensor Module",
+      "selling_price": 210,
+      "other_variable_cost": 10,
+      "market_demand_min": null,
+      "market_demand_max": null,
+      "raw_material_g": 9,
+      "labor_a_hours": 1,
+      "labor_b_hours": 1,
+      "machine_hours": 0.4
+    },
+    {
+      "id": "W",
+      "name": "Power Supply Unit",
+      "selling_price": 260,
+      "other_variable_cost": 16,
+      "market_demand_min": 15,
+      "market_demand_max": 55,
+      "raw_material_g": 11,
+      "labor_a_hours": 1.2,
+      "labor_b_hours": 1.4,
+      "machine_hours": 0.7
+    },
+    {
+      "id": "X",
+      "name": "Communication Interface",
+      "selling_price": 230,
+      "other_variable_cost": 12,
+      "market_demand_min": null,
+      "market_demand_max": 60,
+      "raw_material_g": 8,
+      "labor_a_hours": 0.8,
+      "labor_b_hours": 1.5,
+      "machine_hours": 0.5
+    },
+    {
+      "id": "Y",
+      "name": "Advanced Processor Board",
+      "selling_price": 290,
+      "other_variable_cost": 18,
+      "market_demand_min": 8,
+      "market_demand_max": 35,
+      "raw_material_g": 12,
+      "labor_a_hours": 1.4,
+      "labor_b_hours": 1.8,
+      "machine_hours": 0.9
+    },
+    {
+      "id": "Z",
+      "name": "Simple Relay Module",
+      "selling_price": 205,
+      "other_variable_cost": 8,
+      "market_demand_min": null,
+      "market_demand_max": 50,
+      "raw_material_g": 7,
+      "labor_a_hours": 0.9,
+      "labor_b_hours": 1.2,
+      "machine_hours": 0.3
+    },
+    {
+      "id": "P",
+      "name": "Industrial Controller",
+      "selling_price": 250,
+      "other_variable_cost": 14,
+      "market_demand_min": 12,
+      "market_demand_max": 45,
+      "raw_material_g": 10.5,
+      "labor_a_hours": 1.1,
+      "labor_b_hours": 1.6,
+      "machine_hours": 0.6
+    },
+    {
+      "id": "Q",
+      "name": "High-Frequency Transmitter",
+      "selling_price": 320,
+      "other_variable_cost": 18,
+      "market_demand_min": null,
+      "market_demand_max": 30,
+      "raw_material_g": 13,
+      "labor_a_hours": 1.6,
+      "labor_b_hours": 2.1,
+      "machine_hours": 1.1
+    },
+    {
+      "id": "R",
+      "name": "Basic LED Driver",
+      "selling_price": 215,
+      "other_variable_cost": 6,
+      "market_demand_min": null,
+      "market_demand_max": 70,
+      "raw_material_g": 8.5,
+      "labor_a_hours": 1,
+      "labor_b_hours": 1.1,
+      "machine_hours": 0.3
+    },
+    {
+      "id": "S",
+      "name": "Motor Control Board",
+      "selling_price": 275,
+      "other_variable_cost": 16,
+      "market_demand_min": 5,
+      "market_demand_max": 38,
+      "raw_material_g": 11.5,
+      "labor_a_hours": 1.3,
+      "labor_b_hours": 1.7,
+      "machine_hours": 0.8
+    }
+  ],
+  "resources": {
+    "raw_material": {
+      "unit": "g",
+      "cost_per_unit": 10,
+      "availability_max": 900
+    },
+    "labor_a": {
+      "unit": "hour",
+      "cost_per_unit": 50,
+      "availability_max": 140,
+      "overtime_available_hours": 20,
+      "overtime_cost_premium_per_unit": 25
+    },
+    "labor_b": {
+      "unit": "hour",
+      "cost_per_unit": 40,
+      "availability_max": 180,
+      "overtime_available_hours": 30,
+      "overtime_cost_premium_per_unit": 20
+    },
+    "machine": {
+      "unit": "hour",
+      "cost_per_unit": 65,
+      "availability_max": 100,
+      "overtime_available_hours": null
+    }
+  },
+  "cost_structure": {
+    "note": "Documents how fields map to the profit formula. Extend the model in stages.",
+    "current_model_profit_formula": "selling_price - (raw_material_g * raw_material.cost_per_unit) - (labor_a_hours * labor_a.cost_per_unit) - (labor_b_hours * labor_b.cost_per_unit)",
+    "extended_model_profit_formula": "selling_price - (raw_material_g * raw_material.cost_per_unit) - (labor_a_hours * labor_a.cost_per_unit) - (labor_b_hours * labor_b.cost_per_unit) - (machine_hours * machine.cost_per_unit) - other_variable_cost",
+    "overtime_surcharge": "If overtime hours are used, add overtime_cost_premium_per_unit on top of cost_per_unit for those hours only"
+  },
+  "objective": {
+    "sense": "maximize",
+    "metric": "gross_profit"
+  },
+  "planning_horizon": "weekly"
+}
