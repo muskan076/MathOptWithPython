@@ -204,8 +204,8 @@ class SolutionReport:
         for r in self._scenario.resources:
             cap = "%6.0f" % r.availability_max if r.availability_max is not None else "   n/a"
             print("%-18s: %7.2f / %s" % (r.id, resource_totals[r.id], cap))
-        print("%-18s: $%,.2f" % ("Objective value", self._model.objective_value))
-        print("%-18s: $%,.2f" % ("Recomputed profit", total_profit))
+        print("%-18s: $%d,.2f" % ("Objective value", self._model.objective_value))
+        print("%-18s: $%d,.2f" % ("Recomputed profit", total_profit))
 
     def to_json(self, path: Path) -> None:
         production = [
@@ -242,7 +242,7 @@ class SolutionReport:
 # ---------------------------------------------------------------------------
 
 def main() -> None:
-    scenario = Scenario.from_json(Path(__file__).resolve().parents[2] / "input_data.json")
+    scenario = Scenario.from_json(Path(__file__).resolve().parents[2] / "Chapter1/Solved/input_data.json")
 
     model = ProductionModel(scenario)
     model.build()
@@ -253,7 +253,7 @@ def main() -> None:
 
     report = SolutionReport(scenario, model)
     report.print_summary()
-    report.to_json(Path("output_result.json"))
+    report.to_json(Path("Chapter1/Solved/output_result.json"))
 
 
 if __name__ == "__main__":
